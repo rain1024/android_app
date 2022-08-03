@@ -5,94 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/mainlayout"
+    android:background="@color/teal_200"
     tools:context=".MainActivity">
 
-    <TextView
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_gravity="center"
-        android:textSize="35sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Learn Math"
-        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:id="@+id/imageview"
         />
-    
-    <EditText
-        android:id="@+id/first_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter first number"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="70dp"
-        />
-
-    <EditText
-        android:id="@+id/second_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter second number"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="30dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="10"
-        android:id="@+id/result"
-        android:layout_gravity="center"
-        android:textSize="50sp"
-        android:layout_margin="5dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:gravity="center"
-        >
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/addButton"
-            android:text="+"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:textSize="20sp"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/minusButton"
-            android:text="-"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:textSize="20sp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:gravity="center"
-        >
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/multiplyButton"
-            android:text="*"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:textSize="20sp"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/divideButton"
-            android:text="/"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:textSize="20sp"/>
-    </LinearLayout>
 
 </LinearLayout>
