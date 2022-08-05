@@ -1,4 +1,6 @@
 package com.example.myapplication
 
-data class Dish(var name: String, var image: Int) {
+import java.io.Serializable
+
+data class Dish(var name: String, var image: Int) : Serializable {
 }
