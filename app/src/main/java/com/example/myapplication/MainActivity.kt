@@ -1,29 +1,48 @@
 package com.example.myapplication
 
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.lang.Exception
+import java.lang.StringBuilder
+import java.net.HttpURLConnection
+import java.net.URL
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val url: String = "https://i.imgur.com/DvpvklR.png"
-        val urlFail: String = "https://i.imgur.com/DvpvklR111.png1111"
-        // case 1: Normal
-//        Picasso.get().load(url).into(imageView);
-        // case 2: With loading
-//        Picasso.get()
-//            .load(url)
-//            .placeholder(R.drawable.image_loading)
-//            .error(R.drawable.image_fail)
-//            .into(imageView);
-        // case 3: Loading fail
-        Picasso.get()
-            .load(urlFail)
-            .placeholder(R.drawable.image_loading)
-            .error(R.drawable.image_fail)
-            .into(imageView);
+
+        val url = "https://api.publicapis.org/entries"
+        ReadJSON().execute(url)
+    }
+
+    inner class ReadJSON: AsyncTask<String, Void, String>(){
+        override fun doInBackground(vararg p0: String?): String {
+            var text = ""
+            val url: URL = URL(p0[0])
+            val connect: HttpURLConnection = url.openConnection() as HttpURLConnection
+            try {
+                text = connect.inputStream.bufferedReader().readText()
+            } finally {
+                connect.disconnect()
+            }
+            return text
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            val data: JSONObject = JSONObject(result)
+            val item = data.getInt("count")
+            val s = data.getJSONArray("entries").getJSONObject(0).getString("API")
+            Toast.makeText(applicationContext, s, Toast.LENGTH_LONG).show()
+        }
     }
 }
