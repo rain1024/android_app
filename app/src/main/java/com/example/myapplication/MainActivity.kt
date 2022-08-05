@@ -2,6 +2,8 @@ package com.example.myapplication
 
 import android.content.AsyncQueryHandler
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,37 +24,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        button1.setOnClickListener {
-            ReadContentURL().execute("https://khoapham.vn/")
-        }
+        LoadImage().execute("https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__340.jpg")
     }
 
-    inner class ReadContentURL: AsyncTask<String, Void, String>(){
-        override fun doInBackground(vararg p0: String?): String {
-            var content: StringBuilder = StringBuilder()
-            var url: URL = URL(p0[0])
-            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-            val inputStream: InputStream = connection.inputStream
-            val reader: InputStreamReader = InputStreamReader(inputStream)
-            val buffer: BufferedReader = BufferedReader(reader)
-            var line: String = ""
-            try {
-                do {
-                    line = buffer.readLine()
-                    if(line != null){
-                        content.append(line)
-                    }
-                } while (line != null)
-                buffer.close()
-            } catch (e: Exception) {
-                Log.d("AAA", e.toString())
-            }
-            return content.toString()
+    inner class LoadImage: AsyncTask<String, Void, Bitmap>(){
+        override fun doInBackground(vararg p0: String?): Bitmap {
+            val url = URL(p0[0])
+            val inputStream = url.openConnection().getInputStream()
+            val bitmap:Bitmap = BitmapFactory.decodeStream(inputStream)
+            return bitmap
         }
 
-        override fun onPostExecute(result: String?) {
+        override fun onPostExecute(result: Bitmap?) {
             super.onPostExecute(result)
-            Toast.makeText(this@MainActivity, result.toString(), Toast.LENGTH_LONG).show()
+            imageView.setImageBitmap(result)
         }
 
     }
